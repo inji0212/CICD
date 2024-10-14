@@ -5,4 +5,10 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    - name:"1.Checkout"
+      uses:""
+    
+
+     run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      # code 복사(action), node.js 환경 세팅, build, test
+
