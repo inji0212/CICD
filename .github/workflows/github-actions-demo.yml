@@ -5,10 +5,18 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-    - name:"1.Checkout"
-      uses:""
-    
+      - name: "1.Checkout"
+        uses: actions/checkout@v4
+      - name: " Set up 2.node.JS"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: "3. Install"
+        run: npm ci
+      - name: "4. Build"
+        run: npm run build
+      - name: "5. Test"
+        run: npm run test
 
-     run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      # code 복사(action), node.js 환경 세팅, build, test
-
+    #  run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    # code 복사(action), node.js 환경 세팅, build, test
