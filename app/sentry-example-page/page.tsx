@@ -2,8 +2,13 @@
 
 import Head from "next/head";
 import * as Sentry from "@sentry/nextjs";
+import { useEffect } from "react";
 
 export default function Page() {
+  useEffect(() => {
+    // Any Sentry-related client-side initialization can go here if needed
+  }, []);
+
   return (
     <div>
       <Head>
@@ -36,6 +41,35 @@ export default function Page() {
         </h1>
 
         <p>Get started by sending us a sample error:</p>
+        {/* <button
+          type="button"
+          style={{
+            padding: "12px",
+            cursor: "pointer",
+            backgroundColor: "#AD6CAA",
+            borderRadius: "4px",
+            border: "none",
+            color: "white",
+            fontSize: "14px",
+            margin: "18px",
+          }}
+          onClick={async () => {
+            await Sentry.startSpan(
+              {
+                name: "Example Frontend Span",
+                op: "test",
+              },
+              async () => {
+                const res = await fetch("/api/sentry-example-api");
+                if (!res.ok) {
+                  throw new Error("Sentry Example Frontend Error");
+                }
+              }
+            );
+          }}
+        >
+          Throw error!
+        </button> */}
         <button
           type="button"
           style={{
@@ -49,23 +83,17 @@ export default function Page() {
             margin: "18px",
           }}
           onClick={async () => {
-            await Sentry.startSpan({
-              name: 'Example Frontend Span',
-              op: 'test'
-            }, async () => {
-              const res = await fetch("/api/sentry-example-api");
-              if (!res.ok) {
-                throw new Error("Sentry Example Frontend Error");
-              }
-            });
+            Sentry.captureMessage("Something went wrong", "error");
           }}
         >
-          Throw error!
+          Throw error2
         </button>
-
         <p>
           Next, look for the error on the{" "}
-          <a href="https://codeit-0r.sentry.io/issues/?project=4508120116494336">Issues Page</a>.
+          <a href="https://codeit-0r.sentry.io/issues/?project=4508120116494336">
+            Issues Page
+          </a>
+          .
         </p>
         <p style={{ marginTop: "24px" }}>
           For more information, see{" "}

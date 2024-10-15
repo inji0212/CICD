@@ -26,12 +26,26 @@ jobs:
         run: npm ci
       - name: "4. Build"
         run: npm run build
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       - name: "5. Test"
         run: npm run test
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+  cypress-run:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
 
     #  run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
     # code 복사(action), node.js 환경 세팅, build, test
